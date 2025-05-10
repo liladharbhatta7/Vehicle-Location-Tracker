@@ -75,11 +75,10 @@ project-root/
 │   └── js/                 # Frontend scripts
 │
 ├── arduino/
-│   ├── GPS_Ultrasonic.ino  # Arduino sketch for GPS + sensor data
+│   ├── Live_location.ino  # Arduino sketch for GPS + sensor data
 │   └── libraries/          # Required Arduino libraries
 │
-├── firebase/
-│   └── rules.json         # Security rules for Realtime Database
+├
 │
 └── README.md               # Project overview & setup guide
 ```
@@ -90,22 +89,16 @@ project-root/
 
 | Component         | Model / Spec       | Purpose                            |
 | ----------------- | ------------------ | ---------------------------------- |
-| Arduino UNO       | Rev3               | Main microcontroller               |
 | GPS Module        | NEO-6M             | Provides latitude & longitude      |
 | Ultrasonic Sensor | HC-SR04            | Measures dustbin fill level        |
-| Wi-Fi Module      | ESP8266 (optional) | Sends data to Firebase             |
+| Wi-Fi Module      | ESP8266            | Sends data to Firebase             |
 | Power Supply      | 5V / 9V adapter    | Powers the Arduino and peripherals |
 
-1. **Connect GPS**: UART TX/RX pins to Arduino.
-2. **Mount Ultrasonic**: Trigger & Echo pins to digital I/O.
-3. **Network**: (Optional) Use ESP8266 to post sensor data.
-4. **Upload Sketch**: Configure Wi-Fi and Firebase credentials in `GPS_Ultrasonic.ino`.
 
----
 
 ## ⚙️ Arduino Sketch Configuration
 
-Open `arduino/GPS_Ultrasonic.ino` and update the following constants:
+Open `ESP8266/GPS_Ultrasonic.ino` and update the following constants:
 
 ```cpp
 const char* ssid     = "YOUR_WIFI_SSID";
@@ -113,7 +106,7 @@ const char* password = "YOUR_WIFI_PASSWORD";
 const char* db_url   = "https://your-app.firebaseio.com/";
 ```
 
-Then, upload the sketch to your Arduino board.
+Then, upload the sketch to your Wi-Fi module.
 
 ---
 
