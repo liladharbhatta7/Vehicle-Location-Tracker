@@ -23,8 +23,8 @@ void setup() {
   Serial.println("\nWiFi connected!");
 
   // Firebase configuration
-  firebaseConfig.host = "live-location-9ca83-default-rtdb.asia-southeast1.firebasedatabase.app/"; // Firebase URL
-  firebaseConfig.api_key = "1cCvjNZQAy6xqk9RV5592K0U75SHLELfmsRG3EKV"; // Replace with your API key from Firebase Console
+  firebaseConfig.host = ""; // Firebase URL
+  firebaseConfig.api_key = ""; // Replace with your API key from Firebase Console
 
   // Sign in anonymously
   if (Firebase.signUp(&firebaseConfig, &firebaseAuth, "", "")) {

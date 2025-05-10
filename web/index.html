@@ -10,7 +10,7 @@
       width: 100%;
     }
   </style>
- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA69_sBPD_KLlFbwEau8djHX1Qd5pEBCEE&callback=initMap" async defer></script>
+  // Load the Google Maps JavaScript API
 </head>
 <body>
   <div id="map"></div>
@@ -19,15 +19,17 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 
+    //Replace with your Firebase project configuration
     const firebaseConfig = {
-      apiKey: "AIzaSyA3Ugetw9epGrmYhzT4CXb2kGRq0FPPScY",
-      authDomain: "live-location-9ca83.firebaseapp.com",
-      databaseURL: "https://live-location-9ca83-default-rtdb.asia-southeast1.firebasedatabase.app",
-      projectId: "live-location-9ca83",
-      storageBucket: "live-location-9ca83.appspot.com",
-      messagingSenderId: "523622942802",
-      appId: "1:523622942802:web:3e2aa3e2e91461ad3db78b"
-    };
+  apiKey: "AIzaSyDUMMYKEY1234567890abcdefgHIJK",
+  authDomain: "dummy-project-12345.firebaseapp.com",
+  databaseURL: "https://dummy-project-12345-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "dummy-project-12345",
+  storageBucket: "dummy-project-12345.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:abcdef1234567890abcd12"
+};
+
 
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
