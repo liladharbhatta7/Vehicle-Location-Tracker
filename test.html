@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script type="module">
+        // Import the functions you need from the SDKs
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyA3Ugetw9epGrmYhzT4CXb2kGRq0FPPScY",
+          authDomain: "live-location-9ca83.firebaseapp.com",
+          databaseURL: "https://live-location-9ca83-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "live-location-9ca83",
+          storageBucket: "live-location-9ca83.firebasestorage.app",
+          messagingSenderId: "523622942802",
+          appId: "1:523622942802:web:3e2aa3e2e91461ad3db78b"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Function to write location data to Firebase Realtime Database
+        function uploadCoordinates(longitude, latitude) {
+          const dbRef = ref(database, 'location'); // Keep location data
+          set(dbRef, {
+            longitude: longitude,
+            latitude: latitude
+          })
+          .then(() => {
+            console.log("Location data uploaded successfully!");
+          })
+          .catch((error) => {
+            console.error("Error uploading location data:", error);
+          });
+        }
+
+        // Function to write dustbin data to Firebase Realtime Database
+        function uploadDustbinData() {
+          const dustbins = {
+            Dustbin1: { name: "Dustbin 1 (Koteshwor to Balkumari)", status: "filled" },
+            Dustbin2: { name: "Dustbin 2 (Balkumari to Gwarko)", status: "unfilled" },
+            Dustbin3: { name: "Dustbin 3 (Gwarko to Patan)", status: "unfilled" },
+            Dustbin4: { name: "Dustbin 4 (Patan to Pulchowk)", status: "ufilled" },
+            Dustbin5: { name: "Dustbin 5 (Pulchowk to Jawalakhel)", status: "unfilled" },
+            Dustbin6: { name: "Dustbin 6 (Jawalakhel to Lagankhel)", status: "unfilled" },
+            Dustbin7: { name: "Dustbin 7 (Lagankhel to Satdobato)", status: "ufilled" },
+            Dustbin8: { name: "Dustbin 8 (Satdobato to Dhapakhel)", status: "unfilled" },
+            Dustbin9: { name: "Dustbin 9 (Dhapakhel to Nakhhu)", status: "ufilled" },
+            Dustbin10: { name: "Dustbin 10 (Nakhhu to Hattiban)", status: "unfilled" }
+          };
+
+          const dbRef = ref(database, 'dustbins');
+          set(dbRef, dustbins)
+          .then(() => {
+            console.log("Dustbin data uploaded successfully!");
+          })
+          .catch((error) => {
+            console.error("Error uploading dustbin data:", error);
+          });
+        }
+
+        // Example usage
+        const testLongitude = 25.3240; // Replace with actual longitude
+        const testLatitude = 20.7172;  // Replace with actual latitude
+        uploadCoordinates(testLongitude, testLatitude); // Upload location data
+        uploadDustbinData(); // Upload dustbin data
+    </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dustbin Status</title>
+    <!-- Link to Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background:-webkit-repeating-linear-gradient(45deg, #f9f9f9, #f9f9f9 10px, #f0f0f0 10px, #f0f0f0 20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            background:#177;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        h1 {
+            font-size: 36px;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .dustbin-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            width: 100%;
+        }
+
+        .dustbin-card {
+            background:pink;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .dustbin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .dustbin-icon {
+            font-size: 50px;
+            color: #6c757d;
+            margin-bottom: 15px;
+        }
+
+        .dustbin-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .dustbin-status {
+            font-size: 16px;
+            font-weight: 500;
+            color: #777;
+        }
+
+        .status-filled {
+            color: #28a745;
+        }
+
+        .status-unfilled {
+            color: #dc3545;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .dustbin-list {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dustbin Status</h1>
+        <div class="dustbin-list" id="dustbinList">
+            <!-- Dustbin cards will be dynamically inserted here -->
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyA3Ugetw9epGrmYhzT4CXb2kGRq0FPPScY",
+          authDomain: "live-location-9ca83.firebaseapp.com",
+          databaseURL: "https://live-location-9ca83-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "live-location-9ca83",
+          storageBucket: "live-location-9ca83.firebasestorage.app",
+          messagingSenderId: "523622942802",
+          appId: "1:523622942802:web:3e2aa3e2e91461ad3db78b"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Function to retrieve and display all dustbins
+        function getDustbins() {
+            const dbRef = ref(database, 'dustbins');
+            get(dbRef)
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        const dustbins = snapshot.val();
+                        const dustbinList = document.getElementById('dustbinList');
+                        dustbinList.innerHTML = ''; // Clear the list
+
+                        for (const key in dustbins) {
+                            const dustbin = dustbins[key];
+
+                            // Create dustbin card element
+                            const dustbinCard = document.createElement('div');
+                            dustbinCard.className = 'dustbin-card';
+
+                            const icon = document.createElement('div');
+                            icon.className = 'dustbin-icon';
+
+                            // Set icon based on the status of the dustbin
+                            if (dustbin.status === 'filled') {
+                                icon.innerHTML = '<i class="fa-solid fa-trash-can"></i>'; // Filled dustbin icon
+                            } else {
+                                icon.innerHTML = '<i class="fa-solid fa-trash-can-empty"></i>'; // Unfilled dustbin icon
+                            }
+
+                            const name = document.createElement('div');
+                            name.className = 'dustbin-name';
+                            name.textContent = dustbin.name;
+
+                            const status = document.createElement('div');
+                            status.className = 'dustbin-status ' + (dustbin.status === 'filled' ? 'status-filled' : 'status-unfilled');
+                            status.textContent = dustbin.status === 'filled' ? 'Filled' : 'Unfilled';
+
+                            dustbinCard.appendChild(icon);
+                            dustbinCard.appendChild(name);
+                            dustbinCard.appendChild(status);
+
+                            dustbinList.appendChild(dustbinCard);
+                        }
+                    } else {
+                        console.log("No data available");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+
+        // Call the function to retrieve and display dustbin data
+        getDustbins();
+    </script>
+</body>
+</html>

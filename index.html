@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Live Location</title>
+  <style>
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA69_sBPD_KLlFbwEau8djHX1Qd5pEBCEE&callback=initMap" async defer></script>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyA3Ugetw9epGrmYhzT4CXb2kGRq0FPPScY",
+      authDomain: "live-location-9ca83.firebaseapp.com",
+      databaseURL: "https://live-location-9ca83-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "live-location-9ca83",
+      storageBucket: "live-location-9ca83.appspot.com",
+      messagingSenderId: "523622942802",
+      appId: "1:523622942802:web:3e2aa3e2e91461ad3db78b"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    let map, marker;
+
+    window.initMap = function(latitude = 27.7172, longitude = 85.3240) {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: latitude, lng: longitude },
+        zoom: 15,
+        mapTypeId: "roadmap",
+      });
+
+      marker = new google.maps.Marker({
+        position: { lat: latitude, lng: longitude },
+        map: map,
+        title: "Live Location",
+      });
+    };
+
+    const locationRef = ref(database, "location");
+    onValue(locationRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const { latitude, longitude } = data;
+        const newPosition = { lat: latitude, lng: longitude };
+
+        if (marker) {
+          marker.setPosition(newPosition);
+          map.setCenter(newPosition);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

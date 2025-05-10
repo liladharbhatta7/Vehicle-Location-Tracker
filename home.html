@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Collection</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(145deg, #a8e6cf, #dcedc1);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 20px;
+            background-color: lightpink;
+            box-shadow: 10px 10px 20px #b0bec5, -10px -10px 20px #ffffff;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4caf50;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #00796b;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            color: #ffffff;
+            text-decoration: none;
+            border: none;
+            border-radius: 50px;
+            background: #4caf50;
+            box-shadow: inset 2px 2px 5px #388e3c, inset -2px -2px 5px #66bb6a;
+            transition: all 0.2s;
+        }
+
+        .button i {
+            margin-right: 0.5rem;
+        }
+
+        .button:hover {
+            box-shadow: 5px 5px 15px #388e3c, -5px -5px 15px #66bb6a;
+            cursor: pointer;
+        }
+
+        .button.secondary {
+            background: #0288d1;
+            box-shadow: inset 2px 2px 5px #0277bd, inset -2px -2px 5px #03a9f4;
+        }
+
+        .button.secondary:hover {
+            box-shadow: 5px 5px 15px #0277bd, -5px -5px 15px #03a9f4;
+        }
+        a{
+            text-decoration:none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">EcoNova</div>
+        <h1>Smart Waste Collection</h1>
+        <p>Track Waste Vehicle</p>
+        <div class="buttons">
+            <button class="button">
+                <i class="fas fa-history"></i> Show History
+            </button>
+           <a href="index.html"><button class="button secondary">
+                <i class="fas fa-map-marker-alt"></i> Track Location
+            </button>
+            </a>
+            <a href="dustbin_filled.html">
+            <button class="button">
+                <i class="fas fa-trash-alt"></i> Show Filled Dustbin
+            </button>
+            </a
+        </div>
+    </div>
+</body>
+</html>
